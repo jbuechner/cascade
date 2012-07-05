@@ -10,7 +10,7 @@ namespace Cascade
     public static class EnumerableExtensions
     {
         /// <summary>
-        /// This method itererates over an enumeration and using a callback for each item in the enumeration.
+        /// This method iterates over an enumeration and using a callback for each item in the enumeration.
         /// </summary>
         /// <param name="targetValues">An enumeration to iterate over.</param>
         /// <param name="callback">A callback which is called for each item which is returned when iterating over <paramref name="targetValues"/>.</param>
@@ -24,7 +24,7 @@ namespace Cascade
         /// <summary>
         /// This method itererates over an enumeration and using a callback for each item in the enumeration.
         /// </summary>
-        /// <typeparam name="T">The tye parameter of the items in the enumeration.</typeparam>
+        /// <typeparam name="T">The type parameter of the items in the enumeration.</typeparam>
         /// <param name="targetValues">An enumeration to iterate over.</param>
         /// <param name="callback">A callback which is called for each item which is returned when iterating over <paramref name="targetValues"/>.</param>
         public static void ForEach<T>(this IEnumerable<T> targetValues, Action<T> callback)
