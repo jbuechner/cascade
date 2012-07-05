@@ -8,11 +8,11 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: CLSCompliant(false)]
 [assembly: AssemblyTitle("Cascade")]
-[assembly: AssemblyDescription("A library providing extension methods to provide a fluent interface experience in your code.")]
+[assembly: AssemblyDescription("A library containing methods to allow method chaining in most of your code.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("-")]
+[assembly: AssemblyCompany("Jens Buechner")]
 [assembly: AssemblyProduct("Cascade")]
-[assembly: AssemblyCopyright("Copyright © Cascade Project 2012.")]
+[assembly: AssemblyCopyright("Copyright © Jens Buechner 2012.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -34,5 +34,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.0.2.2")]
-[assembly: AssemblyFileVersion("0.0.2.2")]
+[assembly: AssemblyVersion("0.0.2.5")]
+[assembly: AssemblyFileVersion("0.0.2.5")]

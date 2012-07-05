@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+	<metadata>
+		<id>$id$</id>
+		<version>$version$</version>
+		<authors>$author$</authors>
+		<owners>$author$</owners>
+		<licenseUrl>https://github.com/jbuechner/cascade/wiki/License</licenseUrl>
+		<projectUrl>https://github.com/jbuechner/cascade</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>$description$</description>
+		<releaseNotes>Added globalization overloads for To... and As... extensions.</releaseNotes>
+		<tags>.NET Method Chaining Extension</tags>
+	</metadata>
+</package>
