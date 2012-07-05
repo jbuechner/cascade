@@ -138,5 +138,13 @@ namespace Cascade.Tests.Data
             Assert.IsNull(((object)null).DbAsUInt64());
             Assert.IsNull(DBNull.Value.DbAsUInt64());
         }
+
+        [TestMethod]
+        public void DbAsString()
+        {
+            Assert.AreEqual("a", "a".DbAsString());
+            Assert.IsNull(((object)null).DbAsString());
+            Assert.IsNull(DBNull.Value.DbAsString());
+        }
     }
 }

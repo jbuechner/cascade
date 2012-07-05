@@ -1332,5 +1332,16 @@ namespace Cascade.Tests
             Assert.IsNull((-1).AsUInt64());
             Assert.AreEqual((ulong)5, "5".AsUInt64());
         }
+
+        [TestMethod]
+        public void AsString()
+        {
+            Assert.IsNull(((object)null).AsString());
+            Assert.AreEqual(" ", ' '.AsString());
+            Assert.AreEqual("1", (1).AsString());
+            Assert.AreEqual("-1", (-1).AsString());
+            Assert.AreEqual(bool.TrueString, (true).AsString());
+            Assert.AreEqual(new DateTime(2012, 12, 1).ToString(), new DateTime(2012, 12, 1).AsString());
+        }
     }
 }

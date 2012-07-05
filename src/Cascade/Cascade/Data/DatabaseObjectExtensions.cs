@@ -147,5 +147,14 @@ namespace Cascade.Data
 
             return target.DynamicCast<UInt64?>(t => Convert.ToUInt64(target));
         }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Db")]
+        public static string DbAsString(this object target)
+        {
+            if (target == null || Convert.IsDBNull(target))
+                return null;
+
+            return target.DynamicCast<string>(t => Convert.ToString(target));
+        }
     }
 }

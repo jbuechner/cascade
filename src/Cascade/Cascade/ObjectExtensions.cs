@@ -370,5 +370,10 @@ namespace Cascade
         {
             return target.DynamicCast<UInt64?>(t => Convert.ToUInt64(target));
         }
+
+        public static string AsString(this object target)
+        {
+            return target.DynamicCast<string>(t => Convert.ToString(target));
+        }
     }
 }
