@@ -12,6 +12,15 @@ namespace Cascade.Tests.Data
     public class DatabaseObjectExtensionsTest
     {
         [TestMethod]
+        public void ToDbValue()
+        {
+            Assert.AreEqual(DBNull.Value, ((object)null).ToDbValue());
+            Assert.AreEqual(DBNull.Value, DBNull.Value.ToDbValue());
+            Assert.AreEqual(" ", " ".ToDbValue());
+            Assert.AreEqual(1, (1).ToDbValue());
+        }
+
+        [TestMethod]
         public void DbIsNull()
         {
             Assert.IsTrue(((object)null).DbIsNull());

@@ -12,6 +12,22 @@ namespace Cascade.Data
     public static class DatabaseObjectExtensions
     {
         /// <summary>
+        /// Returns <see cref="DBNull"/> for a <c>null</c> value, or the value itself.
+        /// </summary>
+        /// <param name="target">The target value to return.</param>
+        /// <returns>
+        /// Returns either <see cref="DBNull"/> is <paramref name="target"/> itself is null, otherwise <paramref name="target"/>.
+        /// </returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Db")]
+        public static object ToDbValue(this object target)
+        {
+            if (target == null)
+                return DBNull.Value;
+
+            return target;
+        }
+
+        /// <summary>
         /// The method checks wether the value is <c>null</c>.
         /// </summary>
         /// <param name="target">The target value to check.</param>

@@ -1,0 +1,10 @@
+/bin
+/src/Cascade/Cascade/bin
+/src/Cascade/Cascade/obj
+/src/Cascade/Cascade.Tests/bin
+/src/Cascade/Cascade.Tests/obj
+/src/Cascade/TestResults
+*.suo
+*.csproj.user
+*.nupkg
+nuget.exe
