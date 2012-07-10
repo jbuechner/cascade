@@ -9,7 +9,7 @@
 		<projectUrl>https://github.com/jbuechner/cascade</projectUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>$description$</description>
-		<releaseNotes>Added globalization overloads for To... and As... extensions.</releaseNotes>
+		<releaseNotes>Added extension to cast enumerations with callback, use object default values and determine wether a flags is set on enums or integral types.</releaseNotes>
 		<tags>.NET Method Chaining Extension</tags>
 	</metadata>
 </package>
