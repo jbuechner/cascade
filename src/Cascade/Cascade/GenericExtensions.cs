@@ -117,6 +117,29 @@ namespace Cascade
         }
 
         /// <summary>
+        /// The method gets either the value of this object or the <paramref name="defaultValue"/> if this object instance is <c>null</c>.
+        /// </summary>
+        /// <typeparam name="T">Type parameter for the target object.</typeparam>
+        /// <param name="target">The target object instance.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns>
+        /// The method returns the object itself if it is not <c>null</c>. If the object is <c>null</c> <paramref name="defaultValue"/> is returned.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// In difference to the <see cref="GetValueOrDefault&lt;T>(T, T)"/> overload, this overload will accept any value as default value and return it. So you can
+        /// return default value which are not of <typeparamref name="T"/>.
+        /// </para>
+        /// </remarks>
+        public static object GetValueOrDefault<T>(this T target, object defaultValue)
+        {
+            if (target == null)
+                return defaultValue;
+
+            return target;
+        }
+
+        /// <summary>
         /// The method will perform an action when the object instance is not <c>null</c>.
         /// </summary>
         /// <typeparam name="T">Type parameter for the target object.</typeparam>

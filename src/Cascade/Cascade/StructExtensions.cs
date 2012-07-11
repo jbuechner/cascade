@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Cascade
 {
@@ -7,6 +8,12 @@ namespace Cascade
     /// </summary>
     public static class StructExtensions
     {
+        /// <summary>
+        /// Array of all integral types which are supported by the HasFlag extension and are usable as underlaying types for enums. Types with even index in the array are unsigned
+        /// value types, types with uneven index are signed value types.
+        /// </summary>
+        static readonly Type[] IntegralTypes = new[] { typeof(Byte), typeof(SByte), typeof(UInt16), typeof(Int16), typeof(UInt32), typeof(Int32), typeof(UInt64), typeof(Int64) };
+
         // Analysis suppression, because callback is a nested generic, which cannot be avoid for this extension.
         /// <summary>
         /// This method performs an action if the nullable structure value is not <c>null</c>.
@@ -73,6 +80,64 @@ namespace Cascade
                 return callback();
 
             return default(TResult);
+        }
+
+        /// <summary>
+        /// This method checks wether a flag is set. This method can be used on enums or integral value types except <see cref="Char"/>.
+        /// </summary>
+        /// <typeparam name="T">The type parameter of the checked type.</typeparam>
+        /// <param name="target">Target value to check wether it has the flag or not.</param>
+        /// <param name="value">The value of the flag to check.</param>
+        /// <returns>
+        /// Returns <c>true</c> if the <paramref name="value"/> is present in <paramref name="target"/>, otherwise <c>false</c>.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// If the method is used on structs which are not integral value types or are <see cref="Char">chars</see>, the method will always return <c>false</c>.
+        /// </para>
+        /// <para>
+        /// This method can even evaluate flag values on integral types which are not enums.
+        /// </para>
+        /// </remarks>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
+        public static bool HasFlag<T>(this T target, T value)
+            where T : struct
+        {
+            Type typeOfT = typeof(T);
+            Type numericalType = null;
+            int numericalTypeIndex;
+
+            if (typeOfT.IsEnum && Enum.IsDefined(typeOfT, value))
+            {
+                numericalType = Enum.GetUnderlyingType(typeOfT);
+                numericalTypeIndex = Array.IndexOf(StructExtensions.IntegralTypes, numericalType);
+            }
+            else
+            {
+                numericalTypeIndex = Array.IndexOf(StructExtensions.IntegralTypes, typeOfT);
+                if (numericalTypeIndex >= 0)
+                    numericalType = typeOfT;
+            }
+
+            if (numericalType != null && numericalTypeIndex >= 0)
+            {
+                if ((numericalTypeIndex % 2) == 0)
+                {
+                    UInt64 a = (UInt64)Convert.ChangeType(target, typeof(UInt64), CultureInfo.InvariantCulture);
+                    UInt64 b = (UInt64)Convert.ChangeType(value, typeof(UInt64), CultureInfo.InvariantCulture);
+
+                    return a == (a | b);
+                }
+                else
+                {
+                    Int64 a = (Int64)Convert.ChangeType(target, typeof(Int64), CultureInfo.InvariantCulture);
+                    Int64 b = (Int64)Convert.ChangeType(value, typeof(Int64), CultureInfo.InvariantCulture);
+
+                    return a == (a | b);
+                }
+            }
+
+            return false;
         }
     }
 }

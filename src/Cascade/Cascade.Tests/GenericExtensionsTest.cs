@@ -107,7 +107,7 @@ namespace Cascade.Tests
         }
 
         [TestMethod]
-        public void GetValueOrDefault()
+        public void GetValueOrDefault_Object()
         {
             object target = null;
             object defaultValue = new object();
@@ -133,6 +133,35 @@ namespace Cascade.Tests
 
             result = target.GetValueOrDefault(defaultValue);
             Assert.AreSame(defaultValue, result);
+        }
+
+        [TestMethod]
+        public void GetValueOrDefault_Generic()
+        {
+            int? target = null;
+            object defaultValue = new object();
+
+            object result = target.GetValueOrDefault(defaultValue);
+
+            Assert.AreSame(defaultValue, result);
+
+            target = 1;
+
+            result = target.GetValueOrDefault(defaultValue);
+
+            Assert.AreEqual(1, result);
+
+            defaultValue = null;
+
+            result = target.GetValueOrDefault(defaultValue);
+            Assert.AreEqual(target, result);
+
+            result = new object();
+            defaultValue = new object();
+            target = null;
+
+            result = target.GetValueOrDefault(defaultValue);
+            Assert.AreEqual(defaultValue, result);
         }
 
         [TestMethod]
