@@ -92,6 +92,21 @@ namespace Cascade.Tests
         }
 
         [TestMethod]
+        public void GetValueOrNew()
+        {
+            object expected = new object();
+            object target = expected;
+            object result;
+
+            Assert.AreSame(expected, target.GetValueOrNew());
+
+            target = null;
+            result = target.GetValueOrNew();
+            Assert.IsNotNull(result);
+            Assert.AreNotSame(expected, result);
+        }
+
+        [TestMethod]
         public void GetValueOrDefault()
         {
             object target = null;

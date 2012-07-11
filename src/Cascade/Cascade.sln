@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cascade.Tests", "Cascade.Te
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0D153D48-D0EF-4A60-8C47-92A74347F6D2}"
 	ProjectSection(SolutionItems) = preProject
+		Cascade\Cascade.nuspec = Cascade\Cascade.nuspec
 		Cascade.vsmdi = Cascade.vsmdi
 		Local.testsettings = Local.testsettings
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings

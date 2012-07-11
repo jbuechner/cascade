@@ -78,6 +78,23 @@ namespace Cascade
         }
 
         /// <summary>
+        /// The methods gets the current value or a new value if the current value is <c>null</c>.
+        /// </summary>
+        /// <typeparam name="T">Type parameter for the target object.</typeparam>
+        /// <param name="target">The target object.</param>
+        /// <returns>
+        /// Returns either the value of the object if it's not <c>null</c> or a newly created value of the target type.
+        /// </returns>
+        public static T GetValueOrNew<T>(this T target)
+            where T : new()
+        {
+            if (target == null)
+                return new T();
+
+            return target;
+        }
+
+        /// <summary>
         /// The method gets either the value of this object or the <paramref name="defaultValue"/> if this object instance is <c>null</c>.
         /// </summary>
         /// <typeparam name="T">Type parameter for the target object.</typeparam>

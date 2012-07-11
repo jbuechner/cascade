@@ -9,7 +9,7 @@
 		<projectUrl>https://github.com/jbuechner/cascade</projectUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>$description$</description>
-		<releaseNotes>Added globalization overloads for To... and As... extensions.</releaseNotes>
+		<releaseNotes>Added GetDefaultOrNew extension for types with an parameterless constructor.</releaseNotes>
 		<tags>.NET Method Chaining Extension</tags>
 	</metadata>
 </package>

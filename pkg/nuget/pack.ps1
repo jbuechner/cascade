@@ -1,1 +1,1 @@
-& ./nuget.exe pack ./../../src/Cascade/Cascade/Cascade.csproj -Properties Configuration=Release
+& ./nuget.exe pack ./../../src/Cascade/Cascade/Cascade.csproj -Build -Properties Configuration=Release
