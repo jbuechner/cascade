@@ -41,7 +41,7 @@ This one-liner do exactly the same as the method above. The example utilizes two
 `Get` checks whether the dictionary is not null. If it is not null, it checks if it contains an entry with the given key and returns the value.
 
 #Documentation
-You can find a technical documentation of the extension methods in the https://github.com/jbuechner/cascade/wiki[wiki].
+You can find a technical documentation of the extension methods in the [wiki](https://github.com/jbuechner/cascade/wiki).
 
 #License
-Cascade is licensed under the https://github.com/jbuechner/cascade/wiki/License[Apache License 2.0]. Feel free to distribute and modify sources and binaries.
+Cascade is licensed under the [Apache License 2.0](https://github.com/jbuechner/cascade/wiki/License). Feel free to distribute and modify sources and binaries.
