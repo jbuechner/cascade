@@ -10,6 +10,35 @@ namespace Cascade
     /// </summary>
     public static class DictionaryExtensions
     {
+        class Configuration
+        {
+            public IDictionary<string, Section> Sections;
+        }
+
+        class Section
+        {
+            public IDictionary<string, object> Entries;
+        }
+
+public object GetConfigurationValue(Configuration configuration, string sectionKey, string entryKey)
+{
+    if (configuration != null && configuration.Sections != null)
+    {
+        Section section = null;
+        if (configuration.Sections.ContainsKey(sectionKey))
+            section = configuration.Sections[sectionKey];
+
+        if (section != null && section.Entries != null && section.Entries.ContainsKey(entryKey))
+            return section.Entries[entryKey];
+    }
+
+    return null;
+}
+
+public object GetConfigurationValue2(Configuration configuration, string sectionKey, string entryKey)
+{
+    return configuration.IfNotNull(x => x.Sections).Get(sectionKey).IfNotNull(x => x.Entries).Get(entryKey);
+}
         /// <summary>
         /// The methods returns the value of an dictionary by using its key.
         /// </summary>

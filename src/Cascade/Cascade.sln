@@ -1,37 +1,62 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cascade", "Cascade\Cascade.csproj", "{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Web
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cascade_FW40", "Cascade\Cascade_FW40.csproj", "{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cascade.Tests", "Cascade.Tests\Cascade.Tests.csproj", "{0ED6DAFA-437F-4691-A7BA-F4AC1E8F94F3}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0D153D48-D0EF-4A60-8C47-92A74347F6D2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01_Packaging", "01_Packaging", "{0D153D48-D0EF-4A60-8C47-92A74347F6D2}"
 	ProjectSection(SolutionItems) = preProject
 		Cascade\Cascade.nuspec = Cascade\Cascade.nuspec
-		Cascade.vsmdi = Cascade.vsmdi
-		Local.testsettings = Local.testsettings
-		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02_Framework 3.5", "02_Framework 3.5", "{9D6C1B6C-5D70-4F9A-9076-8D7825B94CFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cascade_FW35", "Cascade\Cascade_FW35.csproj", "{0313838E-D42B-47F0-9209-B683C311DA3F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02_Framework 4.0", "02_Framework 4.0", "{B00582E2-E936-42F3-A8F0-F4E5ACE6CBAD}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Cascade.vsmdi
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug@FW35|Any CPU = Debug@FW35|Any CPU
+		Debug@FW40|Any CPU = Debug@FW40|Any CPU
 		Debug|Any CPU = Debug|Any CPU
+		Release@FW35|Any CPU = Release@FW35|Any CPU
+		Release@FW40|Any CPU = Release@FW40|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Debug@FW35|Any CPU.ActiveCfg = Debug|Any CPU
+		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Debug@FW35|Any CPU.Build.0 = Debug|Any CPU
+		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Debug@FW40|Any CPU.ActiveCfg = Debug|Any CPU
+		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Debug@FW40|Any CPU.Build.0 = Debug|Any CPU
 		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Release@FW35|Any CPU.ActiveCfg = Release|Any CPU
+		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Release@FW35|Any CPU.Build.0 = Release|Any CPU
+		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Release@FW40|Any CPU.ActiveCfg = Release|Any CPU
+		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Release@FW40|Any CPU.Build.0 = Release|Any CPU
 		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0ED6DAFA-437F-4691-A7BA-F4AC1E8F94F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0ED6DAFA-437F-4691-A7BA-F4AC1E8F94F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0ED6DAFA-437F-4691-A7BA-F4AC1E8F94F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0ED6DAFA-437F-4691-A7BA-F4AC1E8F94F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0313838E-D42B-47F0-9209-B683C311DA3F}.Debug@FW35|Any CPU.ActiveCfg = Debug|Any CPU
+		{0313838E-D42B-47F0-9209-B683C311DA3F}.Debug@FW35|Any CPU.Build.0 = Debug|Any CPU
+		{0313838E-D42B-47F0-9209-B683C311DA3F}.Debug@FW40|Any CPU.ActiveCfg = Debug|Any CPU
+		{0313838E-D42B-47F0-9209-B683C311DA3F}.Debug@FW40|Any CPU.Build.0 = Debug|Any CPU
+		{0313838E-D42B-47F0-9209-B683C311DA3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0313838E-D42B-47F0-9209-B683C311DA3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0313838E-D42B-47F0-9209-B683C311DA3F}.Release@FW35|Any CPU.ActiveCfg = Release|Any CPU
+		{0313838E-D42B-47F0-9209-B683C311DA3F}.Release@FW35|Any CPU.Build.0 = Release|Any CPU
+		{0313838E-D42B-47F0-9209-B683C311DA3F}.Release@FW40|Any CPU.ActiveCfg = Release|Any CPU
+		{0313838E-D42B-47F0-9209-B683C311DA3F}.Release@FW40|Any CPU.Build.0 = Release|Any CPU
+		{0313838E-D42B-47F0-9209-B683C311DA3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0313838E-D42B-47F0-9209-B683C311DA3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0313838E-D42B-47F0-9209-B683C311DA3F} = {9D6C1B6C-5D70-4F9A-9076-8D7825B94CFB}
+		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C} = {B00582E2-E936-42F3-A8F0-F4E5ACE6CBAD}
 	EndGlobalSection
 EndGlobal

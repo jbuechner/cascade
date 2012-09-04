@@ -55,9 +55,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cascade\Cascade.csproj">
+    <ProjectReference Include="..\Cascade\Cascade_FW40.csproj">
       <Project>{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}</Project>
-      <Name>Cascade</Name>
+      <Name>Cascade_FW40</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
