@@ -1,1 +1,2 @@
-& ./nuget.exe pack ./../../src/Cascade/Cascade/Cascade.csproj -Build -Properties Configuration=Release
+copy-item ./../../src/Cascade/Cascade/Cascade.nuspec ./../../bin/release
+& ./nuget.exe pack ./../../bin/release/Cascade.nuspec

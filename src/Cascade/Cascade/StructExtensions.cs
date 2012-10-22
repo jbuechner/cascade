@@ -83,10 +83,10 @@ namespace Cascade
         }
 
         /// <summary>
-        /// This method checks wether a flag is set. This method can be used on enums or integral value types except <see cref="Char"/>.
+        /// This method checks whether a flag is set. This method can be used on enums or integral value types except <see cref="Char"/>.
         /// </summary>
         /// <typeparam name="T">The type parameter of the checked type.</typeparam>
-        /// <param name="target">Target value to check wether it has the flag or not.</param>
+        /// <param name="target">Target value to check whether it has the flag or not.</param>
         /// <param name="value">The value of the flag to check.</param>
         /// <returns>
         /// Returns <c>true</c> if the <paramref name="value"/> is present in <paramref name="target"/>, otherwise <c>false</c>.

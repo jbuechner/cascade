@@ -18,24 +18,24 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\bin\fw40\debug\</OutputPath>
+    <OutputPath>..\..\..\bin\debug\lib\net40\</OutputPath>
     <DefineConstants>TRACE;DEBUG;FW40</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\..\bin\fw40\debug\Cascade.xml</DocumentationFile>
+    <DocumentationFile>..\..\..\bin\debug\lib\net40\Cascade.xml</DocumentationFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\bin\fw40\release\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <OutputPath>..\..\..\bin\release\lib\net40\</OutputPath>
+    <DefineConstants>FW40</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\..\bin\fw40\release\Cascade.xml</DocumentationFile>
+    <DocumentationFile>..\..\..\bin\release\lib\net40\Cascade.xml</DocumentationFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>ExtendedDesignGuidelineRules.ruleset</CodeAnalysisRuleSet>

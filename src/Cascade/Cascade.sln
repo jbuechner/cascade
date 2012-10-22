@@ -14,41 +14,26 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cascade_FW35", "Cascade\Cas
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02_Framework 4.0", "02_Framework 4.0", "{B00582E2-E936-42F3-A8F0-F4E5ACE6CBAD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00_Common", "00_Common", "{28FB4EC4-62C8-4F9D-A567-AA1423BC5315}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\readme.md = ..\..\readme.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Cascade.vsmdi
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug@FW35|Any CPU = Debug@FW35|Any CPU
-		Debug@FW40|Any CPU = Debug@FW40|Any CPU
 		Debug|Any CPU = Debug|Any CPU
-		Release@FW35|Any CPU = Release@FW35|Any CPU
-		Release@FW40|Any CPU = Release@FW40|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Debug@FW35|Any CPU.ActiveCfg = Debug|Any CPU
-		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Debug@FW35|Any CPU.Build.0 = Debug|Any CPU
-		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Debug@FW40|Any CPU.ActiveCfg = Debug|Any CPU
-		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Debug@FW40|Any CPU.Build.0 = Debug|Any CPU
 		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Release@FW35|Any CPU.ActiveCfg = Release|Any CPU
-		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Release@FW35|Any CPU.Build.0 = Release|Any CPU
-		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Release@FW40|Any CPU.ActiveCfg = Release|Any CPU
-		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Release@FW40|Any CPU.Build.0 = Release|Any CPU
 		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0313838E-D42B-47F0-9209-B683C311DA3F}.Debug@FW35|Any CPU.ActiveCfg = Debug|Any CPU
-		{0313838E-D42B-47F0-9209-B683C311DA3F}.Debug@FW35|Any CPU.Build.0 = Debug|Any CPU
-		{0313838E-D42B-47F0-9209-B683C311DA3F}.Debug@FW40|Any CPU.ActiveCfg = Debug|Any CPU
-		{0313838E-D42B-47F0-9209-B683C311DA3F}.Debug@FW40|Any CPU.Build.0 = Debug|Any CPU
 		{0313838E-D42B-47F0-9209-B683C311DA3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0313838E-D42B-47F0-9209-B683C311DA3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0313838E-D42B-47F0-9209-B683C311DA3F}.Release@FW35|Any CPU.ActiveCfg = Release|Any CPU
-		{0313838E-D42B-47F0-9209-B683C311DA3F}.Release@FW35|Any CPU.Build.0 = Release|Any CPU
-		{0313838E-D42B-47F0-9209-B683C311DA3F}.Release@FW40|Any CPU.ActiveCfg = Release|Any CPU
-		{0313838E-D42B-47F0-9209-B683C311DA3F}.Release@FW40|Any CPU.Build.0 = Release|Any CPU
 		{0313838E-D42B-47F0-9209-B683C311DA3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0313838E-D42B-47F0-9209-B683C311DA3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
@@ -56,7 +41,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{0313838E-D42B-47F0-9209-B683C311DA3F} = {9D6C1B6C-5D70-4F9A-9076-8D7825B94CFB}
 		{48B4D5F8-86B2-4E7B-A73D-402E5621DA6C} = {B00582E2-E936-42F3-A8F0-F4E5ACE6CBAD}
+		{0313838E-D42B-47F0-9209-B683C311DA3F} = {9D6C1B6C-5D70-4F9A-9076-8D7825B94CFB}
 	EndGlobalSection
 EndGlobal

@@ -4,18 +4,19 @@ using System.Globalization;
 namespace Cascade
 {
     /// <summary>
-    /// The static <i>GenericExtensions</i> class contains extension methods which can be applied to a wide number of objects or structures, because the target types are generic and does not
-    /// having any concrete type constraints (beside <i>class</i> or <i>new</i>).
+    /// The static <i>GenericExtensions</i> class contains extension methods which can be applied to a wide number of typs, because the target types are generic and does not
+    /// having any concrete type constraints (beside modifier like <i>class</i>, <i>struct</i> or <i>new</i>).
     /// </summary>
     public static class GenericExtensions
     {
         /// <summary>
         /// The method performs a static cast.
         /// </summary>
-        /// <typeparam name="T">Result type of the static cast.</typeparam>
+        /// <typeparam name="TIn">Type parameter for the target type of this extension.</typeparam>
+        /// <typeparam name="TOut">Type parameter of the return value of this extension.</typeparam>
         /// <param name="target">Target of the static cast.</param>
         /// <returns>
-        /// Returns a value of type <typeparamref name="T"/> or raises exceptions if the static cast can not be applied.
+        /// Returns a value of type <typeparamref name="TOut"/> or raises exceptions if the static cast can not be applied.
         /// </returns>
         public static TOut To<TOut, TIn>(this TIn target)
         {
@@ -25,11 +26,12 @@ namespace Cascade
         /// <summary>
         /// The method performs a dynamic cast.
         /// </summary>
-        /// <typeparam name="T">Result type of the dynamic cast.</typeparam>
+        /// <typeparam name="TIn">Type parameter for the target type of this extension.</typeparam>
+        /// <typeparam name="TOut">Type parameter of the return value of this extension.</typeparam>
         /// <param name="target">Target of the dynamic cast.</param>
         /// <returns>
-        /// Returns either a value of type <typeparamref name="T"/> if the dynamic cast was performed successful or the default value of <typeparamref name="T"/> if <paramref name="target"/>
-        /// is not of type <typeparamref name="T"/>.
+        /// Returns either a value of type <typeparamref name="TOut"/> if the dynamic cast was successful or the default value of <typeparamref name="TOut"/> if <paramref name="target"/>
+        /// is not of type <typeparamref name="TOut"/>.
         /// </returns>
         public static TOut As<TIn, TOut>(this TIn target)
         {
@@ -40,8 +42,9 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method checks wether the value is <c>null</c>.
+        /// The method checks whether the value is <c>null</c>.
         /// </summary>
+        /// <typeparam name="T">Target type for this extension.</typeparam>
         /// <param name="target">Target of the check.</param>
         /// <returns>
         /// Returns <c>true</c> if <paramref name="target"/> is <c>null</c>, otherwise <c>false</c>.
@@ -52,15 +55,26 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a static cast on the object and returns the value in a given type.
+        /// The method checks whether the value is not <c>null</c>.
         /// </summary>
-        /// <typeparam name="T">Result type of the static cast.</typeparam>
+        /// <typeparam name="T">Target type for this extension.</typeparam>
+        /// <param name="target">Target of the check.</param>
+        /// <returns></returns>
+        public static bool IsNotNull<T>(this T target)
+        {
+            return target != null;
+        }
+
+        /// <summary>
+        /// The method performs a static cast on the object and returns the value in form of a certain type.
+        /// </summary>
+        /// <typeparam name="TIn">Target type for this extension.</typeparam>
+        /// <typeparam name="TOut">Result type of the static cast.</typeparam>
         /// <param name="target">Target of the static cast.</param>
-        /// <param name="castCallback">A callback used if <paramref name="target"/> is not already of type <typeparamref name="T"/>.</param>
+        /// <param name="castCallback">A callback used if <paramref name="target"/> is not already of type <typeparamref name="TIn"/>.</param>
         /// <returns>
-        /// Returns either a value of type <typeparamref name="T"/> or the default value of <typeparamref name="T"/> if returned by <paramref name="castCallback"/>.
-        /// </returns>
-        /// <exception cref="InvalidCastException">Is raised when <paramref name="target"/> is <c>null</c> or the value is not of type <typeparamref name="T"/> and <paramref name="castCallback"/>
+        /// Returns either a value of type <typeparamref name="TOut"/> or the default value of <typeparamref name="TOut"/> if returned by <paramref name="castCallback"/>.</returns>
+        /// <exception cref="InvalidCastException">Is raised when <paramref name="target"/> is <c>null</c> or the value is not of type <typeparamref name="TOut"/> and <paramref name="castCallback"/>
         /// is <c>null</c>.</exception>
         public static TOut StaticCast<TIn, TOut>(this TIn target, Func<TIn, TOut> castCallback)
         {
@@ -79,16 +93,17 @@ namespace Cascade
         /// <summary>
         /// The method performs a dynamic cast on the object and returns the value in a given type.
         /// </summary>
-        /// <typeparam name="T">Result type of the dynamic cast.</typeparam>
+        /// <typeparam name="TIn">The target type for this extension.</typeparam>
+        /// <typeparam name="TOut">Result type of the dynamic cast.</typeparam>
         /// <param name="target">Target of the dynamic cast.</param>
-        /// <param name="castCallback">A callback used if <paramref name="target"/> is not of type <typeparamref name="T"/> and if <paramref name="target"/> is not <c>null</c>.</param>
+        /// <param name="castCallback">A callback used if <paramref name="target"/> is not of type <typeparamref name="TOut"/> and if <paramref name="target"/> is not <c>null</c>.</param>
         /// <returns>
-        /// Returns either a value of type <typeparamref name="T"/> or the default value of <typeparamref name="T"/> if <paramref name="target"/> is not of type <typeparamref name="T"/>,
+        /// Returns either a value of type <typeparamref name="TOut"/> or the default value of <typeparamref name="TOut"/> if <paramref name="target"/> is not of type <typeparamref name="TOut"/>,
         /// is <c>null</c> or if <paramref name="castCallback"/> is null.
         /// </returns>
         /// <remarks>
-        /// The method performs exactly like <see cref="StaticCast"/>, but do not raise exceptions if <paramref name="target"/> is <c>null</c> or not of the type <typeparamref name="T"/>. In addition
-        /// any <see cref="FormatException"/>, <see cref="InvalidCastException"/> and <see cref="OverflowException"/> is catched by this method and the default value of <typeparamref name="T"/> is
+        /// The method performs exactly like <see cref="StaticCast"/>, but do not raise exceptions if <paramref name="target"/> is <c>null</c> or is not of type <typeparamref name="TOut"/>. In addition
+        /// any <see cref="FormatException"/>, <see cref="InvalidCastException"/> and <see cref="OverflowException"/> is catched by this method and the default value of <typeparamref name="TOut"/> is
         /// returned instead.
         /// </remarks>
         public static TOut DynamicCast<TIn, TOut>(this TIn target, Func<TIn, TOut> castCallback)
@@ -120,6 +135,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="Boolean"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
         /// Returns a <see cref="Boolean"/> value.
@@ -135,6 +151,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="Boolean"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToBoolean(object, IFormatProvider)"/>.</param>
         /// <returns>
@@ -151,6 +168,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="Byte"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
         /// Returns a <see cref="Byte"/> value.
@@ -166,6 +184,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="Byte"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToByte(object, IFormatProvider)"/>.</param>
         /// <returns>
@@ -182,6 +201,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="SByte"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
         /// Returns a <see cref="SByte"/> value.
@@ -197,6 +217,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="SByte"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToSByte(object, IFormatProvider)"/>.</param>
         /// <returns>
@@ -213,6 +234,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="Char"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
         /// Returns a <see cref="Char"/> value.
@@ -228,6 +250,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="Char"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToChar(object, IFormatProvider)"/>.</param>
         /// <returns>
@@ -244,6 +267,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="DateTime"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
         /// Returns a <see cref="DateTime"/> value.
@@ -260,6 +284,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="DateTime"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToDateTime(object, IFormatProvider)"/>.</param>
         /// <returns>
@@ -316,15 +341,30 @@ namespace Cascade
         }
 
 #if FW40
+        /// <summary>
+        /// The method performs a static cast to <see cref="TimeSpan"/>.
+        /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
+        /// <param name="target">Target of the cast.</param>
+        /// <returns>
+        /// Returns a <see cref="TimeSpan"/> value.
+        /// </returns>
+        /// <remarks>
+        /// The method uses the <see cref="StaticCast"/> extension method in combination with <see cref="TimeSpan.Parse(string)"/> as there is no
+        /// <c>System.Convert.ToTimeSpan</c>. If the value is an integer value, a new <see cref="TimeSpan"/> is created using the numeric value
+        /// as <see cref="TimeSpan.Ticks"/>.
+        /// </remarks>
         public static TimeSpan ToTimeSpan<T>(this T target)
         {
             return target.ToTimeSpan<T>(null);
         }
 #endif
 
+#if FW35
         /// <summary>
         /// The method performs a static cast to <see cref="TimeSpan"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
         /// Returns a <see cref="TimeSpan"/> value.
@@ -334,6 +374,22 @@ namespace Cascade
         /// <c>System.Convert.ToTimeSpan</c>. If the value is an integer value, a new <see cref="TimeSpan"/> is created using the numeric value
         /// as <see cref="TimeSpan.Ticks"/>.
         /// </remarks>
+#elif FW40
+        /// <summary>
+        /// The method performs a static cast to <see cref="TimeSpan"/>.
+        /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
+        /// <param name="target">Target of the cast.</param>
+        /// <param name="provider">The format provider used for the <see cref="System.Convert.ToDateTime(object, IFormatProvider)"/>.</param>
+        /// <returns>
+        /// Returns a <see cref="TimeSpan"/> value.
+        /// </returns>
+        /// <remarks>
+        /// The method uses the <see cref="StaticCast"/> extension method in combination with <see cref="TimeSpan.Parse(string, IFormatProvider)"/> as there is no
+        /// <c>System.Convert.ToTimeSpan</c>. If the value is an integer value, a new <see cref="TimeSpan"/> is created using the numeric value
+        /// as <see cref="TimeSpan.Ticks"/>.
+        /// </remarks>
+#endif
         public static TimeSpan ToTimeSpan<T>(
             this T target
 #if FW40
@@ -363,7 +419,7 @@ namespace Cascade
                     if (value <= Int32.MaxValue)
                         return new TimeSpan((Int32)value);
                 }
-
+                
 #if FW35
                 return TimeSpan.Parse(target.ToString());
 #elif FW40
@@ -375,6 +431,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="Decimal"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
         /// Returns a <see cref="Decimal"/> value.
@@ -406,6 +463,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="Double"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
         /// Returns a <see cref="Double"/> value.
@@ -421,6 +479,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="Double"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToDouble(object, IFormatProvider)"/>.</param>
         /// <returns>
@@ -437,6 +496,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="Single"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
         /// Returns a <see cref="Single"/> value.
@@ -452,6 +512,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="Single"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToSingle(object, IFormatProvider)"/>.</param>
         /// <returns>
@@ -468,6 +529,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="Int16"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
         /// Returns a <see cref="Int16"/> value.
@@ -483,6 +545,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="Int16"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToInt16(object, IFormatProvider)"/>.</param>
         /// <returns>
@@ -499,6 +562,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="UInt16"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
         /// Returns a <see cref="UInt16"/> value.
@@ -514,6 +578,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="UInt16"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToUInt16(object, IFormatProvider)"/>.</param>
         /// <returns>
@@ -530,6 +595,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="Int32"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
         /// Returns a <see cref="Int32"/> value.
@@ -545,6 +611,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="Int32"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToInt32(object, IFormatProvider)"/>.</param>
         /// <returns>
@@ -561,6 +628,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="UInt32"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
         /// Returns a <see cref="UInt32"/> value.
@@ -576,6 +644,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="UInt32"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToUInt32(object, IFormatProvider)"/>.</param>
         /// <returns>
@@ -592,6 +661,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="Int64"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
         /// Returns a <see cref="Int64"/> value.
@@ -607,6 +677,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="Int64"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToInt64(object, IFormatProvider)"/>.</param>
         /// <returns>
@@ -623,6 +694,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="UInt64"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
         /// Returns a <see cref="UInt64"/> value.
@@ -638,6 +710,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a static cast to <see cref="UInt64"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToUInt64(object, IFormatProvider)"/>.</param>
         /// <returns>
@@ -652,11 +725,12 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;Boolean>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{Boolean}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;Boolean>"/> value.
+        /// Returns a <see cref="System.Nullable{Boolean}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToBoolean(object)"/>.
@@ -667,12 +741,13 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;Boolean>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{Boolean}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToBoolean(object, IFormatProvider)"/>.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;Boolean>"/> value.
+        /// Returns a <see cref="System.Nullable{Boolean}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToBoolean(object, IFormatProvider)"/>.
@@ -683,11 +758,12 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;Byte>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{Byte}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;Byte>"/> value.
+        /// Returns a <see cref="System.Nullable{Byte}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToByte(object)"/>.
@@ -698,12 +774,13 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;Byte>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{Byte}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToByte(object, IFormatProvider)"/>.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;Byte>"/> value.
+        /// Returns a <see cref="System.Nullable{Byte}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToByte(object, IFormatProvider)"/>.
@@ -714,11 +791,12 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;SByte>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{SByte}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;SByte>"/> value.
+        /// Returns a <see cref="System.Nullable{SByte}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToSByte(object)"/>.
@@ -729,12 +807,13 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;SByte>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{SByte}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToSByte(object, IFormatProvider)"/>.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;SByte>"/> value.
+        /// Returns a <see cref="System.Nullable{SByte}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToSByte(object, IFormatProvider)"/>.
@@ -745,11 +824,12 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;Char>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{Char}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;Char>"/> value.
+        /// Returns a <see cref="System.Nullable{Char}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToChar(object)"/>.
@@ -760,12 +840,13 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;Char>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{Char}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToChar(object, IFormatProvider)"/>.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;Char>"/> value.
+        /// Returns a <see cref="System.Nullable{Char}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToChar(object, IFormatProvider)"/>.
@@ -776,11 +857,12 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;DateTime>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{DateTime}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;DateTime>"/> value.
+        /// Returns a <see cref="System.Nullable{DateTime}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToDateTime(object)"/>. If the value is
@@ -792,12 +874,13 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;DateTime>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{DateTime}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToDateTime(object, IFormatProvider)"/>.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;DateTime>"/> value.
+        /// Returns a <see cref="System.Nullable{DateTime}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToDateTime(object, IFormatProvider)"/>. If the value is
@@ -850,24 +933,54 @@ namespace Cascade
         }
 
 #if FW40
+        /// <summary>
+        /// The method performs a dynamic cast to <see cref="System.Nullable{DateTime}"/>.
+        /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
+        /// <param name="target">Target of the cast.</param>
+        /// <returns>
+        /// Returns a <see cref="System.Nullable{DateTime}"/> value.
+        /// </returns>
+        /// <remarks>
+        /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToDateTime(object, IFormatProvider)"/>. If the value is
+        /// a non-negative integer number, a new <see cref="DateTime"/> is created, using the numeric value as <see cref="DateTime.Ticks"/> for the date time.
+        /// </remarks>
         public static TimeSpan? AsTimeSpan<T>(this T target)
         {
             return target.AsTimeSpan<T>(null);
         }
 #endif
 
+#if FW35
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;TimeSpan>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{TimeSpan}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;TimeSpan>"/> value.
+        /// Returns a <see cref="System.Nullable{TimeSpan}"/> value.
         /// </returns>
         /// <remarks>
-        /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="TimeSpan.Parse"/> as there is no
+        /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.TimeSpan.Parse(string)"/> as there is no
         /// <c>System.Convert.ToTimeSpan</c>. If the value is an integer value, a new <see cref="TimeSpan"/> is created using the numeric value
         /// as <see cref="TimeSpan.Ticks"/>.
         /// </remarks>
+#elif FW40
+        /// <summary>
+        /// The method performs a dynamic cast to <see cref="System.Nullable{TimeSpan}"/>.
+        /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
+        /// <param name="target">Target of the cast.</param>
+        /// <param name="provider">The format provider used for the <see cref="System.TimeSpan.TryParse(string, IFormatProvider, out TimeSpan)"/>.</param>
+        /// <returns>
+        /// Returns a <see cref="System.Nullable{TimeSpan}"/> value.
+        /// </returns>
+        /// <remarks>
+        /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.TimeSpan.TryParse(string, IFormatProvider, out TimeSpan)"/> as there is no
+        /// <c>System.Convert.ToTimeSpan</c>. If the value is an integer value, a new <see cref="TimeSpan"/> is created using the numeric value
+        /// as <see cref="TimeSpan.Ticks"/>.
+        /// </remarks>
+#endif
         public static TimeSpan? AsTimeSpan<T>(
             this T target
 #if FW40
@@ -912,11 +1025,12 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;Decimal>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{Decimal}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;Decimal>"/> value.
+        /// Returns a <see cref="System.Nullable{Decimal}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToDecimal(object)"/>.
@@ -927,12 +1041,13 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;Decimal>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{Decimal}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToDecimal(object, IFormatProvider)"/>.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;Decimal>"/> value.
+        /// Returns a <see cref="System.Nullable{Decimal}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToDecimal(object, IFormatProvider)"/>.
@@ -943,11 +1058,12 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;Double>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{Double}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;Double>"/> value.
+        /// Returns a <see cref="System.Nullable{Double}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToDouble(object)"/>.
@@ -958,12 +1074,13 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;Double>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{Double}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToDouble(object, IFormatProvider)"/>.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;Double>"/> value.
+        /// Returns a <see cref="System.Nullable{Double}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToDouble(object, IFormatProvider)"/>.
@@ -974,11 +1091,12 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;Single>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{Single}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;Single>"/> value.
+        /// Returns a <see cref="System.Nullable{Single}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToSingle(object)"/>.
@@ -989,12 +1107,13 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;Single>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{Single}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToSingle(object, IFormatProvider)"/>.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;Single>"/> value.
+        /// Returns a <see cref="System.Nullable{Single}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToSingle(object, IFormatProvider)"/>.
@@ -1005,11 +1124,12 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;Int16>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{Int16}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;Int16>"/> value.
+        /// Returns a <see cref="System.Nullable{Int16}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToInt16(object)"/>.
@@ -1020,12 +1140,13 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;Int16>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{Int16}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToInt16(object, IFormatProvider)"/>.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;Int16>"/> value.
+        /// Returns a <see cref="System.Nullable{Int16}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToInt16(object, IFormatProvider)"/>.
@@ -1036,11 +1157,12 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;UInt16>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{UInt16}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;UInt16>"/> value.
+        /// Returns a <see cref="System.Nullable{UInt16}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToUInt16(object)"/>.
@@ -1051,12 +1173,13 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;UInt16>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{UInt16}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToUInt16(object, IFormatProvider)"/>.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;UInt16>"/> value.
+        /// Returns a <see cref="System.Nullable{UInt16}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToUInt16(object, IFormatProvider)"/>.
@@ -1067,11 +1190,12 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;Int32>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{Int32}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;Int32>"/> value.
+        /// Returns a <see cref="System.Nullable{Int32}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToInt32(object)"/>.
@@ -1082,12 +1206,13 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;Int32>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{Int32}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToInt32(object, IFormatProvider)"/>.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;Int32>"/> value.
+        /// Returns a <see cref="System.Nullable{Int32}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToInt32(object)"/>.
@@ -1098,11 +1223,12 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;UInt32>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{UInt32}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;UInt32>"/> value.
+        /// Returns a <see cref="System.Nullable{UInt32}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToUInt32(object)"/>.
@@ -1113,12 +1239,13 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;UInt32>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{UInt32}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToUInt32(object, IFormatProvider)"/>.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;UInt32>"/> value.
+        /// Returns a <see cref="System.Nullable{UInt32}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToUInt32(object, IFormatProvider)"/>.
@@ -1129,11 +1256,12 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;Int64>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{Int64}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;Int64>"/> value.
+        /// Returns a <see cref="System.Nullable{Int64}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToInt64(object)"/>.
@@ -1144,12 +1272,13 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;Int64>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{Int64}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToInt64(object, IFormatProvider)"/>.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;Int64>"/> value.
+        /// Returns a <see cref="System.Nullable{Int64}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToInt64(object, IFormatProvider)"/>.
@@ -1160,11 +1289,12 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;UInt64>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{UInt64}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;UInt64>"/> value.
+        /// Returns a <see cref="System.Nullable{UInt64}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToUInt64(object)"/>.
@@ -1175,12 +1305,13 @@ namespace Cascade
         }
 
         /// <summary>
-        /// The method performs a dynamic cast to <see cref="System.Nullable&lt;UInt64>"/>.
+        /// The method performs a dynamic cast to <see cref="System.Nullable{UInt64}"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToUInt64(object, IFormatProvider)"/>.</param>
         /// <returns>
-        /// Returns a <see cref="System.Nullable&lt;UInt64>"/> value.
+        /// Returns a <see cref="System.Nullable{UInt64}"/> value.
         /// </returns>
         /// <remarks>
         /// The method uses the <see cref="DynamicCast"/> extension method in combination with <see cref="System.Convert.ToUInt64(object, IFormatProvider)"/>.
@@ -1193,6 +1324,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a dynamic cast to <see cref="String"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <returns>
         /// Returns a <see cref="String"/> value.
@@ -1208,6 +1340,7 @@ namespace Cascade
         /// <summary>
         /// The method performs a dynamic cast to <see cref="String"/>.
         /// </summary>
+        /// <typeparam name="T">Target type of the extension</typeparam>
         /// <param name="target">Target of the cast.</param>
         /// <param name="provider">The format provider used for the <see cref="System.Convert.ToString(object, IFormatProvider)"/>.</param>
         /// <returns>
@@ -1340,7 +1473,7 @@ namespace Cascade
         /// </returns>
         /// <remarks>
         /// <para>
-        /// In difference to the <see cref="GetValueOrDefault&lt;T>(T, T)"/> overload, this overload will accept any value as default value and return it. So you can
+        /// In difference to the <see cref="GetValueOrDefault{T}(T, T)"/> overload, this overload will accept any value as default value and return it. So you can
         /// return default value which are not of <typeparamref name="T"/>.
         /// </para>
         /// </remarks>
@@ -1377,7 +1510,7 @@ namespace Cascade
         /// if <paramref name="callback"/> is <c>null</c>.
         /// </returns>
         /// <remarks>
-        /// This method can be used together with the <see cref="IfNull&lt;TTarget, TResult>(TTarget, Func&lt;TResult>)"/> extensions to chain the calls to something like:
+        /// This method can be used together with the <see cref="IfNull{TTarget, TResult}(TTarget, Func{TResult})"/> extensions to chain the calls to something like:
         /// <example>
         /// <code>
         /// static void Main()
@@ -1423,7 +1556,7 @@ namespace Cascade
         /// if <paramref name="callback"/> is <c>null</c>.
         /// </returns>
         /// <remarks>
-        /// This method can be used together with the <see cref="IfNotNull&lt;TTarget, TResult>(TTarget, Func&lt;TTarget, TResult>)"/> extensions to chain the calls to something like:
+        /// This method can be used together with the <see cref="IfNotNull{TTarget, TResult}(TTarget, Func{TTarget, TResult})"/> extensions to chain the calls to something like:
         /// <example>
         /// <code>
         /// static void Main()

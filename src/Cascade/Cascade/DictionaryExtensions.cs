@@ -6,46 +6,17 @@ using System.Text;
 namespace Cascade
 {
     /// <summary>
-    /// The static <i>DictionaryExtensions</i> class contains extension methods which are usable on <see cref="IDictionary&lt;TKey, TValue>" /> types.
+    /// The static <i>DictionaryExtensions</i> class contains extension methods which usable on <see cref="IDictionary{TKey, TValue}" /> types.
     /// </summary>
     public static class DictionaryExtensions
     {
-        class Configuration
-        {
-            public IDictionary<string, Section> Sections;
-        }
-
-        class Section
-        {
-            public IDictionary<string, object> Entries;
-        }
-
-public object GetConfigurationValue(Configuration configuration, string sectionKey, string entryKey)
-{
-    if (configuration != null && configuration.Sections != null)
-    {
-        Section section = null;
-        if (configuration.Sections.ContainsKey(sectionKey))
-            section = configuration.Sections[sectionKey];
-
-        if (section != null && section.Entries != null && section.Entries.ContainsKey(entryKey))
-            return section.Entries[entryKey];
-    }
-
-    return null;
-}
-
-public object GetConfigurationValue2(Configuration configuration, string sectionKey, string entryKey)
-{
-    return configuration.IfNotNull(x => x.Sections).Get(sectionKey).IfNotNull(x => x.Entries).Get(entryKey);
-}
         /// <summary>
-        /// The methods returns the value of an dictionary by using its key.
+        /// The method returns the value of an entry in the dictionary by using its key or its default value if the entry is not present in the dictionary.
         /// </summary>
         /// <typeparam name="TKey">Type parameter of the key of the dictionary.</typeparam>
         /// <typeparam name="TValue">Type parameter of the value of the dictionary.</typeparam>
         /// <param name="target">The target object instance.</param>
-        /// <param name="key">The key to get the value out of the dictionary.</param>
+        /// <param name="key">The key of the entry in the dictionary.</param>
         /// <returns>
         /// Returns the actual dictionary value if the <paramref name="key"/> was found in the dictionary, in any other case the default value of <typeparamref name="TValue"/> is returned.
         /// </returns>
@@ -59,12 +30,46 @@ public object GetConfigurationValue2(Configuration configuration, string section
         }
 
         /// <summary>
-        /// The method returns the value of an dictionary by using its key, or if the key is not yet part of the dictionary, using a callback to return and store a value inside the dictionary.
+        /// The method returns the value of an entry inside a dictionary using a key. If no entry exists, a new entry with the given key will be added to the dictionary and returned.
+        /// </summary>
+        /// <typeparam name="TKey">Type parameter of the key type of the dictionary.</typeparam>
+        /// <typeparam name="TValue">Type parameter of the value type of the dictionary.</typeparam>
+        /// <param name="target">Target object instance for this extension.</param>
+        /// <param name="key">The key of the entry in the dictionary.</param>
+        /// <param name="newEntryValue">The value added to the dictionary and returned if no entry with the key exists.</param>
+        /// <returns>
+        /// Returns the actual dictionary entry value if an entry with the key exists. In any other case, a new entry will be added to the dictionary, using <paramref name="newEntryValue"/> as entry value. The value is then returned.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// If the dictionary itself is <c>null</c> the default value of <typeparamref name="TValue"/> will be returned.
+        /// </para>
+        /// <para>
+        /// If no entry with the key exists in the dictionary, a new entry with the key will be added to the dictionary, even if <paramref name="newEntryValue"/> is the default value of
+        /// <typeparamref name="TValue"/>.
+        /// </para>
+        /// </remarks>
+        public static TValue Get<TKey, TValue>(this IDictionary<TKey, TValue> target, TKey key, TValue newEntryValue)
+        {
+            if (target != null)
+                if (target.ContainsKey(key))
+                    return target[key];
+                else
+                {
+                    target.Add(key, newEntryValue);
+                    return newEntryValue;
+                }
+
+            return default(TValue);
+        }
+
+        /// <summary>
+        /// The method returns the value of an entry inside the dictionary using a key, or if no entry with the given key is present inside the dictionary, using a callback to return and store a value inside the dictionary.
         /// </summary>
         /// <typeparam name="TKey">Type parameter of the key of the dictionary.</typeparam>
         /// <typeparam name="TValue">Type parameter of the value of the dictionary.</typeparam>
         /// <param name="target">The target object instance.</param>
-        /// <param name="key">The key to get the value out of the dictionary. The key is also used to store a new value in the dictionary, when the <paramref name="valueNeededCallback">callback</paramref>
+        /// <param name="key">The key of the entry in the dictionary to return the value. The key is also used to store a new value in the dictionary, when the <paramref name="valueNeededCallback">callback</paramref>
         /// method is used to store a new value in the dictionary.</param>
         /// <param name="valueNeededCallback">A callback that is used to store a new value in the dictionary. The callback is used when the dictionary does not contain an entry with the given
         /// key.</param>
